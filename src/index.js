@@ -1,7 +1,7 @@
 'use strict'
 
-import { app, Menu, BrowserWindow } from "electron";
-import devtools from "./devtools";
+import { app, Menu, BrowserWindow } from 'electron'
+import devtools from './devtools'
 
 if (process.env.NODE_ENV === 'development') {
   devtools()
@@ -54,11 +54,7 @@ const template = [
   }
 ]
 
-const menu = Menu.buildFromTemplate(template)
-// Menu.setApplicationMenu(menu)
-
 app.on('before-quit', () => {
-  console.log('Saliendo')
 })
 
 app.on('ready', () => {
@@ -69,23 +65,17 @@ app.on('ready', () => {
     center: true,
     show: false,
     darkTheme: true
-  });
-
-  // win.setMenu(null)
-
-  win.once('ready-to-show', () => {
-    win.show();
   })
 
-  win.on('move', () => {
-    const position = win.getPosition();
-    console.log('Position', position)
+  win.setMenu(null)
+
+  win.once('ready-to-show', () => {
+    win.show()
   })
 
   win.on('close', () => {
-    app.quit();
+    app.quit()
   })
-
 
   // win.loadURL('http://mirandajignacio.com/')
   win.loadURL(`file://${__dirname}/index.html`)
