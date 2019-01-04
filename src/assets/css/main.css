@@ -26,3 +26,7 @@
   max-height: calc(100% - 16px);
   max-width: calc(100% - 16px);
 }
+
+.hidden {
+  display: none
+}
