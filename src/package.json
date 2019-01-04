@@ -1,0 +1,27 @@
+{
+  "name": "eletronjs-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development electron src/index.js",
+    "lint": "standard",
+    "lint-fix": "standard --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "electron-compile": "^6.4.4",
+    "electron-debug": "^2.0.0",
+    "filesize": "^3.6.1",
+    "is-image": "^2.0.0"
+  },
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron-prebuilt-compile": "^4.0.0",
+    "standard": "^12.0.1"
+  }
+}
