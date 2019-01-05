@@ -11,53 +11,8 @@ if (process.env.NODE_ENV === "development") {
   devtools();
 }
 
-const template = [
-  {
-    label: "Edit",
-    submenu: [
-      { role: "undo" },
-      { role: "redo" },
-      { type: "separator" },
-      { role: "cut" },
-      { role: "copy" },
-      { role: "paste" },
-      { role: "pasteandmatchstyle" },
-      { role: "delete" },
-      { role: "selectall" }
-    ]
-  },
-  {
-    label: "View",
-    submenu: [
-      { role: "reload" },
-      { role: "forcereload" },
-      { role: "toggledevtools" },
-      { type: "separator" },
-      { role: "resetzoom" },
-      { role: "zoomin" },
-      { role: "zoomout" },
-      { type: "separator" },
-      { role: "togglefullscreen" }
-    ]
-  },
-  {
-    role: "window",
-    submenu: [{ role: "minimize" }, { role: "close" }]
-  },
-  {
-    role: "help",
-    submenu: [
-      {
-        label: "Learn More",
-        click() {
-          require("electron").shell.openExternal("https://electronjs.org");
-        }
-      }
-    ]
-  }
-];
 
-app.on("before-quit", () => {});
+app.on("before-quit", () => { });
 
 app.on("ready", () => {
   let win = new BrowserWindow({
@@ -94,6 +49,8 @@ ipcMain.on("open-directory", (event, arg) => {
       const images = [];
       if (dir) {
         fs.readdir(dir[0], (err, files) => {
+          if (err) throw err
+
           for (let index = 0; index < files.length; index++) {
             const element = files[index];
             if (isImage(element)) {
@@ -107,7 +64,7 @@ ipcMain.on("open-directory", (event, arg) => {
               });
             }
           }
-          console.log(images);
+          event.sender.send('load-images', images)
         });
       }
     }
