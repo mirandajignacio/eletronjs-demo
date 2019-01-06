@@ -1,6 +1,6 @@
 import url from "url";
 import path from "path";
-import applyFilter from "./filters";
+import { applyFilter } from "./filters";
 
 function addImagesEvents() {
   const thumbs = document.querySelectorAll("li.list-group-item");
@@ -19,9 +19,12 @@ function changeImage(node) {
     if (selected) selected.classList.remove('selected')
     // document.querySelector("li.selected").classList.remove("selected");
     node.classList.add("selected");
-    document.getElementById("image-displayed").src = node.querySelector(
+    const image = document.getElementById("image-displayed");
+    image.src = node.querySelector(
       "img"
     ).src;
+    image.dataset.original = image.src
+    document.getElementById('filters').selectedIndex = 0;
   } else {
     document.getElementById("image-displayed").src = "";
   }
