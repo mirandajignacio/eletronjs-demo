@@ -6,7 +6,6 @@ import  fs from "fs";
 
 function addImagesEvents() {
   const thumbs = document.querySelectorAll("li.list-group-item");
-
   for (let index = 0; index < thumbs.length; index++) {
     const element = thumbs[index];
     element.addEventListener("click", () => {
