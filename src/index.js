@@ -5,7 +5,7 @@ import devtools from "./devtools";
 import handleErrors from "./handle-erros";
 import setIpcMain from "./ipcMainEvents";
 
-var win = null;
+global.win = null; //eslint-disable-line
 
 if (process.env.NODE_ENV === "development") {
   devtools();
@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "development") {
 app.on("ready", () => {
 
 
-  win = new BrowserWindow({
+  global.win = new BrowserWindow({
     width: 800,
     height: 600,
     title: "Hola Mundo Electron Js",
@@ -23,21 +23,21 @@ app.on("ready", () => {
     darkTheme: true
   });
 
-  setIpcMain(win)
-  handleErrors(win)
+  setIpcMain(global.win)
+  handleErrors(global.win)
 
-  win.setMenu(null);
+  global.win.setMenu(null);
 
-  win.once("ready-to-show", () => {
-    win.show();
+  global.win.once("ready-to-show", () => {
+    global.win.show();
   });
 
-  win.on("close", () => {
+  global.win.on("close", () => {
     app.quit();
   });
 
-  // win.loadURL('http://mirandajignacio.com/')
-  win.loadURL(`file://${__dirname}/index.html`);
+  // global.win.loadURL('http://mirandajignacio.com/')
+  global.win.loadURL(`file://${__dirname}/index.html`);
 });
 
 

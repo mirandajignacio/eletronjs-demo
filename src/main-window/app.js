@@ -1,7 +1,7 @@
 "use strict";
 
-import { setIpc, openDirectory, saveFile, openPreferences } from "./ipcRendererEvents";
-import { addImagesEvents, searchImagesEvents, selectEvent } from "./images-ui";
+import { setIpc, openDirectory, saveFile, openPreferences } from "./main-window/ipcRendererEvents";
+import { addImagesEvents, searchImagesEvents, selectEvent } from "./main-window/images-ui";
 
 window.addEventListener("load", () => {
   setIpc();
