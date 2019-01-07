@@ -1,4 +1,4 @@
-import { ipcRenderer, remote } from "electron";
+import { ipcRenderer, remote, clipboard } from "electron";
 import { addImagesEvents, selectFirstImage, clearImages } from "./images-ui";
 import path, { dirname } from 'path'
 import { saveImage } from './filters'
@@ -71,11 +71,36 @@ function openPreferences() {
   preferencesWindow.loadURL(`file://${path.join(__dirname, '..')}/preferences.html`)
 }
 
+function uploadImage () {
+  let image = document.getElementById('image-displayed').src
+  image = image.replace('file://', '')
+  let fileName = path.basename(image)
+  if(settings.has('cloudup.user') && settings.has('cloudup.password')) {
+
+  } else {
+    showDialog('error', 'platzipics', 'Por favor configure el aplicativo')
+  }
+}
+
+function pasteImage() {
+  console.log('asd')
+  const image = clipboard.readImage()
+  const data = image.toDataURL()
+  if (data.indexOf('data:image/png;base64') !== -1 && !image.isEmpty()) {
+    let mainImage = document.getElementById('image-displayed')
+    mainImage.src = data;
+    mainImage.dataset.original = data
+  } else {
+    showDialog('error', 'platzipics', 'La imagen que intenta pegar no es valida!')
+  }
+}
+
 module.exports = {
   setIpc: setIpc,
   openDirectory: openDirectory,
   openPreferences: openPreferences,
-  saveFile: saveFile
+  saveFile: saveFile,
+  pasteImage: pasteImage
 };
 
 

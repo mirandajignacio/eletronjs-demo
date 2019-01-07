@@ -1,6 +1,8 @@
 import url from "url";
 import path from "path";
 import { applyFilter } from "./filters";
+import { remote, dialog, shell } from "electron";
+import  fs from "fs";
 
 function addImagesEvents() {
   const thumbs = document.querySelectorAll("li.list-group-item");
@@ -81,11 +83,16 @@ function clearImages() {
   }
 }
 
+function print(){
+  window.print();
+}
+
 module.exports = {
   addImagesEvents: addImagesEvents,
   changeImage: changeImage,
   selectFirstImage: selectFirstImage,
   selectEvent: selectEvent,
   searchImagesEvents: searchImagesEvents,
-  clearImages: clearImages
+  clearImages: clearImages,
+  print
 }
