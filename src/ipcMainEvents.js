@@ -14,26 +14,9 @@ function setMainIpc(win) {
         properties: ["openDirectory"]
       },
       dir => {
-        const images = [];
+        
         if (dir) {
-          fs.readdir(dir[0], (err, files) => {
-            if (err) throw err
-
-            for (let index = 0; index < files.length; index++) {
-              const element = files[index];
-              if (isImage(element)) {
-                let imageFile = path.join(dir[0], element);
-                let stats = fs.statSync(imageFile);
-                let size = filesize(stats.size, { round: 0 });
-                images.push({
-                  filename: element,
-                  src: `file://${imageFile}`,
-                  size: size
-                });
-              }
-            }
-            event.sender.send('load-images', images)
-          });
+          loadImages(event, dir[0])
         }
       }
     );
@@ -57,6 +40,31 @@ function setMainIpc(win) {
   ipcMain.on('show-dialog', (event, info) => {
     dialog.showMessageBox(win, info)
   })
+
+  ipcMain.on('load-directory', (event, dir)=> {
+    loadImages(event, dir)
+  })
 }
 
+function loadImages(event, dir){
+  const images = [];
+  fs.readdir(dir, (err, files) => {
+    if (err) throw err
+
+    for (let index = 0; index < files.length; index++) {
+      const element = files[index];
+      if (isImage(element)) {
+        let imageFile = path.join(dir, element);
+        let stats = fs.statSync(imageFile);
+        let size = filesize(stats.size, { round: 0 });
+        images.push({
+          filename: element,
+          src: `file://${imageFile}`,
+          size: size
+        });
+      }
+    }
+    event.sender.send('load-images', dir, images)
+  });
+}
 module.exports = setMainIpc

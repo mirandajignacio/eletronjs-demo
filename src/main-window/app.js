@@ -2,6 +2,7 @@
 
 import { setIpc, openDirectory, saveFile, openPreferences } from "./main-window/ipcRendererEvents";
 import { addImagesEvents, searchImagesEvents, selectEvent } from "./main-window/images-ui";
+// import 
 
 window.addEventListener("load", () => {
   setIpc();
