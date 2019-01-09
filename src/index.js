@@ -29,7 +29,7 @@ app.on("ready", () => {
     show: false,
     darkTheme: true
   });
-
+  global.win.webContents.openDevTools()
   globalShortcut.register('CommandOrControl+Alt+p', () => {
     global.win.show();
     global.win.focus();

@@ -1,0 +1,3 @@
+electron-packager
+electron-builder
+electron-forge
