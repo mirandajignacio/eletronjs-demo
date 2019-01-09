@@ -73,7 +73,7 @@ function openPreferences() {
 
 function uploadImage () {
   let image = document.getElementById('image-displayed').src
-  image = image.replace('file://', '')
+  image = image.replace('plp://', '')
   let fileName = path.basename(image)
   if(settings.has('cloudup.user') && settings.has('cloudup.password')) {
 

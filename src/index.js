@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, BrowserWindow, Tray } from "electron";
+import { app, BrowserWindow, Tray, protocol, globalShortcut } from "electron";
 import devtools from "./devtools";
 import handleErrors from "./handle-erros";
 import setIpcMain from "./ipcMainEvents";
@@ -14,7 +14,12 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.on("ready", () => {
-
+  protocol.registerFileProtocol('plp', (req, cb) => {
+    const url = req.url.substr(6);
+    cb(path.normalize(url))
+  }, (error) => {
+    if (error) throw err
+  })
 
   global.win = new BrowserWindow({
     width: 800,
@@ -24,6 +29,11 @@ app.on("ready", () => {
     show: false,
     darkTheme: true
   });
+
+  globalShortcut.register('CommandOrControl+Alt+p', () => {
+    global.win.show();
+    global.win.focus();
+  })
 
   setIpcMain(global.win)
   handleErrors(global.win)
@@ -35,6 +45,7 @@ app.on("ready", () => {
   });
 
   global.win.on("close", () => {
+    globalShortcut.unregisterAll();
     app.quit();
   });
 
