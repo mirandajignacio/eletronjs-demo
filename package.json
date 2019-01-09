@@ -53,10 +53,14 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "npm"
+        "packageManager": "npm",
+        "icon": "./src/assets/icons/icon-icon"
       },
       "electronWinstallerConfig": {
-        "name": "eletronjs_demo"
+        "name": "eletronjs_demo",
+        "setupIcon": "./src/assets/icons/icon-icon.ico",
+        "authors": "mirandajignacio",
+        "description": "No rompas mas pls"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
